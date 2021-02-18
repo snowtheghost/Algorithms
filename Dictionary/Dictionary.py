@@ -1,16 +1,23 @@
 from typing import Any, List
-from AVL import AVL
+from AVLDictionary import AVLDictionary
+from HashTableDictionary import HashTableDictionary
 
 
 class Dictionary:
-    dictionary = AVL()
+    dictionary = None
+
+    def __init__(self, strategy: int):
+        """
+        :param strategy: the strategy to use, where 0 => AVL and 1 => HashTable
+        """
+        if strategy == 0:
+            self.dictionary = AVLDictionary()
+        elif strategy == 1:
+            self.dictionary = HashTableDictionary()
+        else:
+            print("Invalid strategy")
 
     def __str__(self) -> str:
-        """
-        :return: a list that holds the string representation of the
-        keys in the tree by preorder traversal, where "X" denotes no node,
-        and the depth of the list denotes the depth of the tree.
-        """
         return str(self.dictionary)
 
     def insert(self, key: Any, value: Any) -> None:
@@ -18,7 +25,7 @@ class Dictionary:
         :param key: the key of the Node to be inserted
         :param value: the value of the Node to be inserted
         """
-        self.dictionary.insert(self.dictionary.root, key, value)
+        self.dictionary.insert(key, value)
 
     def insert_all(self, pairs: List[List[Any]]) -> None:
         """
@@ -34,51 +41,32 @@ class Dictionary:
         :param key: the key that is requested to be searched for
         :return: the corresponding value of the key, or None if not present
         """
-        return self.dictionary.search(self.dictionary.root, key)
+        return self.dictionary.search(key)
 
     def delete(self, key: Any) -> None:
         """
         Precondition: key is in dictionary
         :param key: the key to be deleted from the dictionary
         """
-        self.dictionary.delete(None, key)
-
-    def print_tree(self):
-        """
-        :return: a list that holds the string representation of the
-        keys in the tree by preorder traversal, where "X" denotes no node,
-        and the depth of the list denotes the depth of the tree.
-        """
-        print(f'Data: {self}')
-
-    def print_height(self):
-        """
-        :return: a list that holds the string representation of the height
-        of the nodes in the tree by preorder traversal, where "X" denotes
-        no node, and the depth of the list denotes the depth of the tree.
-        """
-        print(f'Heights: {self.dictionary.human_height(self.dictionary.root)}')
-
-    def print_bf(self):
-        """
-        :return: a list that holds the string representation of the bf
-        of the nodes in the tree by preorder traversal, where "X" denotes
-        no node, and the depth of the list denotes the depth of the tree.
-        """
-        print(f'Balance Factors: {self.dictionary.human_bf(self.dictionary.root)}')
+        self.dictionary.delete(key)
 
     def print(self):
-        self.print_tree()
-        self.print_height()
-        self.print_bf()
-
+        self.dictionary.print()
 
 if __name__ == '__main__':
     # Normal case testing and debugging
-    dictionary = Dictionary()
-    dictionary.insert_all([[5, "five"], [6, "six"], [1, "one"], [3, "three"],
-                           [12, "twelve"], [13, "thirteen"], [11, "eleven"]])
-    dictionary.print()
-    print(dictionary.search(5))
-    dictionary.delete(12)
-    dictionary.print()
+    dictionary0 = Dictionary(0)
+    dictionary0.insert_all([[5, "five"], [6, "six"], [1, "one"], [3, "three"],
+                            [12, "twelve"], [13, "thirteen"], [11, "eleven"]])
+    dictionary0.print()
+    print(dictionary0.search(5))
+    dictionary0.delete(12)
+    dictionary0.print()
+
+    dictionary1 = Dictionary(1)
+    dictionary1.insert_all([[5, "five"], [6, "six"], [1, "one"], [3, "three"],
+                            [12, "twelve"], [13, "thirteen"], [11, "eleven"]])
+    dictionary1.print()
+    print(dictionary1.search(6))
+    dictionary1.delete(12)
+    dictionary1.print()
