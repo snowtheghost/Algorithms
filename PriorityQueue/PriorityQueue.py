@@ -47,7 +47,7 @@ class PriorityQueue:
 
 
 if __name__ == "__main__":
-    heap = MaxHeap()
+    heap = PriorityQueue()
     heap.insert_all([20, 9, 18, 8, 6, 5, 12, 3, 2])
     heap.insert(11)
     print(heap)
