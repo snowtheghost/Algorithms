@@ -72,6 +72,14 @@ class LinkedList:
         for item in items:
             self.insert(item)
 
+    def insert_first(self, item) -> None:
+        new_node = Node(item)
+        if self.root is None:
+            self.root = new_node
+        else:
+            new_node.next = self.root
+            self.root = new_node
+
     def delete(self, item: Any) -> None:
         if self.root.item == item:
             self.root = self.root.next
@@ -91,6 +99,8 @@ if __name__ == '__main__':
     items.insert_all([4, 7, 2, 3, 0, 6, 5])
     print(items)
     items.delete(6)
+    print(items)
+    items.insert_first(9)
     print(items)
 
     for item in items:
