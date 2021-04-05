@@ -6,7 +6,8 @@ from PriorityQueue.PriorityQueue import MinPriorityQueue
 
 def MSTPrim(graph: WeightedGraph, root: Any) -> WeightedGraph:
     """
-    Prim's algorithm to creating an MST from a weighted graph
+    Prim's algorithm to creating an MST from a weighted graph - a greedy algorithm taking all accessible edges from
+    the currently considered vertices into account
     :param graph: a weighted graph of which we extract an MST from
     :param root: the first node to consider
     :return: an MST of the graph
@@ -34,8 +35,8 @@ def MSTPrim(graph: WeightedGraph, root: Any) -> WeightedGraph:
 
         for v in graph.adjacency_list[u]:
             if v in q and graph.weights[(u, v)] < priority[v]:
-                priority[v] = graph.weights[(u, v)]
-                q.update_priority(v, priority[v])
+                priority[v] = graph.weights[(u, v)]  # update to the correct weight
+                q.update_priority(v, priority[v])  # update to the correct weight
                 parent[v] = u
     return mst
 
