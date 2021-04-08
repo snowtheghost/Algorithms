@@ -7,6 +7,7 @@ class WeightedGraph(UndirectedGraph):
     def __init__(self):
         super().__init__()
         self.weights = {}
+        self.edges = []
 
     def __str__(self) -> str:
         out_string = ""
@@ -29,6 +30,7 @@ class WeightedGraph(UndirectedGraph):
         super().add_edge(item_u, item_v)
         self.weights[(item_u, item_v)] = weight
         self.weights[(item_v, item_u)] = weight
+        self.edges.append((item_u, item_v))
 
     def add_weighted_edges(self, edges: list) -> None:
         """
@@ -42,6 +44,20 @@ class WeightedGraph(UndirectedGraph):
         Add an edge of weight 0
         """
         self.add_weighted_edge(item_u, item_v, 0)
+
+    def delete_edge(self, item_u: Any, item_v: Any) -> None:
+        """
+        Precondition: the edge between the two items exists
+        """
+        super().delete_edge(item_u, item_v)
+        self.weights.pop(item_u, item_v)
+        self.weights.pop(item_v, item_u)
+
+        if (item_u, item_v) in self.edges:
+            self.edges.pop(item_u. item_v)
+
+        if (item_v, item_u) in self.edges:
+            self.edges.pop(item_v. item_u)
 
 
 if __name__ == "__main__":

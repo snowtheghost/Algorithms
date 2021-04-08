@@ -56,7 +56,7 @@ class LinkedList:
             current_node = current_node.next
         return counter
 
-    def insert(self, item: Any, node: Node = root) -> None:
+    def insert(self, item: Any) -> None:
         new_node = Node(item)
 
         if self.root is None:
@@ -67,6 +67,16 @@ class LinkedList:
         while current_node.next is not None:
             current_node = current_node.next
         current_node.next = new_node
+
+    def insert_node(self, node: Node) -> None:
+        if self.root is None:
+            self.root = node
+            return
+
+        current_node = self.root
+        while current_node.next is not None:
+            current_node = current_node.next
+        current_node.next = node
         
     def insert_all(self, items: list) -> None:
         for item in items:

@@ -1,6 +1,6 @@
 from typing import Any, List
 
-from HashTable import HashTable
+from HashTable.HashTable import HashTable
 
 
 class HashTableDictionary:

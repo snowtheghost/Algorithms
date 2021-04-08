@@ -1,5 +1,5 @@
 from typing import Any, List
-from AVL import AVL
+from AVLTree.AVL import AVL
 
 
 class AVLDictionary:
