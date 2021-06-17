@@ -3,7 +3,8 @@ from Node import Node
 
 
 class AVL:
-    root = None
+    def __init__(self):
+        self.root = None
 
     def __str__(self) -> str:
         """
@@ -53,6 +54,9 @@ class AVL:
 
         node.update_height()
         rebalance(node)
+
+        if node == self.root:
+            root_rebalance(self.root)
 
     def search(self, node: Node, key: Any) -> Optional[Any]:
         """
@@ -331,3 +335,35 @@ def rebalance(node: Node) -> None:
                 rotate_left(child, child.left)
             rotate_right(node, child)
         node.update_height()
+
+
+def root_rebalance(node: Node) -> None:
+    """
+    :param node: the root of the subtree to rebalance
+    TODO: Does not rebalance root
+    """
+    for child in [node.left, node.right]:
+        if child is None or abs(child.get_bf()) <= 1:
+            continue
+
+        if child.get_bf() > 1:
+            if child.right.get_bf() < 0:
+                rotate_right(child, child.right)
+            rotate_left(node, child)
+        else:  # child.get_bf() < -1
+            if child.left.get_bf() > 0:
+                rotate_left(child, child.left)
+            rotate_right(node, child)
+        node.update_height()
+
+
+if __name__ == '__main__':
+    a = AVL()
+    a.insert(a.root, 7, 7)
+    a.insert(a.root, 5, 5)
+    a.insert(a.root, 6, 6)
+    # a.insert(a.root, 8, 8)
+    # a.insert(a.root, 3, 3)
+    # a.insert(a.root, 4, 4)
+    print(a)
+    print(a.root.get_bf())
